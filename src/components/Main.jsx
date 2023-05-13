@@ -51,7 +51,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
             onCardClick={onCardClick}
             name={item.name}
             link={item.link}
-            likes={[...item.likes]}
+            // likes={[...item.likes]}
+            {...item}
             key={item._id}
           />
         ))}

@@ -52,48 +52,45 @@ function App() {
         title='Редактировать профель'
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopup}
-        children={
-          <>
-            <input type="text" class="popup__input popup__input_name_block" id="name-input" name="name"
-              placeholder="Имя" minlength="2" maxlength="40" required />
-            <span class="popup__error popup__error_visible name-input-error"></span>
+        buttonText={'Сохранить'}>
+        <>
+          <input type="text" className="popup__input popup__input_name_block" id="name-input" name="name"
+            placeholder="Имя" minLength="2" maxLength="40" required />
+          <span className="popup__error popup__error_visible name-input-error"></span>
 
-            <input type="text" class="popup__input popup__input_text_block" id="job-input" name="about"
-              placeholder="Вид деятельности" minlength="2" maxlength="200" required />
-            <span class="popup__error popup__error_visible job-input-error"></span>
-          </>
-        }
-      />
+          <input type="text" className="popup__input popup__input_text_block" id="job-input" name="about"
+            placeholder="Вид деятельности" minLength="2" maxLength="200" required />
+          <span className="popup__error popup__error_visible job-input-error"></span>
+        </>
+      </PopupWithForm>
       <PopupWithForm
         name='addCard'
         title='Новое место'
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopup}
-        children={
-          <>
-            <input type="text" class="popup__input popup__input_name_card" id="nameCard-input" name="name"
-              placeholder="Название" minlength="2" maxlength="30" required />
-            <span class="popup__error popup__error_visible nameCard-input-error"></span>
+        buttonText={'Добавить'}>
+        <>
+          <input type="text" className="popup__input popup__input_name_card" id="nameCard-input" name="name"
+            placeholder="Название" minLength="2" maxLength="30" required />
+          <span className="popup__error popup__error_visible nameCard-input-error"></span>
 
-            <input type="url" class="popup__input popup__input_link_card" id="linkCard-input" name="link"
-              placeholder="Ссылка на картинку" required />
-            <span class="popup__error popup__error_visible linkCard-input-error"></span>
-          </>
-        }
-      />
+          <input type="url" className="popup__input popup__input_link_card" id="linkCard-input" name="link"
+            placeholder="Ссылка на картинку" required />
+          <span className="popup__error popup__error_visible linkCard-input-error"></span>
+        </>
+      </PopupWithForm>
       <PopupWithForm
         name='avatar'
         title='Обновить аватар'
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopup}
-        children={
-          <>
-            <input type="url" class="popup__input popup__input_link_avatar" id="avatar-input" name="avatar"
-              placeholder="Ссылка на аватарку" required />
-            <span class="popup__error popup__error_visible avatar-input-error"></span>
-          </>
-        }
-      />
+        buttonText={'Обновить'}>
+        <>
+          <input type="url" className="popup__input popup__input_link_avatar" id="avatar-input" name="avatar"
+            placeholder="Ссылка на аватарку" required />
+          <span className="popup__error popup__error_visible avatar-input-error"></span>
+        </>
+      </PopupWithForm>
       <PopupWithForm
         name='delete-card'
         title='Вы уверены?'

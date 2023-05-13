@@ -7,14 +7,14 @@ function Card({onCardClick, name, link, likes}) {
   }
 
   return (
-    <article class="group__element">
-      <img class="group__images" src={link} alt={name} onClick={handleCardClick} />
-      <button type="button" class="group__button-del"></button>
-      <div class="group__title">
-        <h2 class="group__name">{name}</h2>
-        <div class="group__title_like">
-          <button type="button" class="group__button-like"></button>
-          <p class="group__like-check">{likes.length}</p>
+    <article className="group__element">
+      <img className="group__images" src={link} alt={name} onClick={handleCardClick} />
+      <button type="button" className="group__button-del"></button>
+      <div className="group__title">
+        <h2 className="group__name">{name}</h2>
+        <div className="group__title_like">
+          <button type="button" className="group__button-like"></button>
+          <p className="group__like-check">{likes.length}</p>
         </div>
       </div>
     </article>

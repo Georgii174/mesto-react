@@ -8,3 +8,4 @@
 В данной работе использовались
 html, css, JS и JSX
 
+По совету ревью, работа была размешена на gh-pages https://georgii174.github.io/mesto-react/
