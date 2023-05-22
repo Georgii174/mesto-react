@@ -1,55 +1,33 @@
 import React from 'react';
-import { api } from '../utils/Api.js'
 import Card from './Card'
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete, cards }) {
 
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch((err) =>
-        console.error(err));
-  }, []);
-
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((res) => {
-        setCards([...res]);
-      })
-      .catch((err) =>
-        console.error(err));
-  }, [])
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="content">
       <section className="profail">
         <div className="profail__avatar">
-          <img src={userAvatar} className="profail__avatar-images" alt="аватарка" />
+          <img src={currentUser.avatar} className="profail__avatar-images" alt="аватарка" />
           <button type="button" className="profail__avatar-button" onClick={onEditAvatar}></button>
         </div>
         <div className="profail__blok">
-          <h1 className="profail__name">{userName}</h1>
+          <h1 className="profail__name">{currentUser.name}</h1>
           <button type="button" className="profail__edit-button" onClick={onEditProfile}></button>
-          <p className="profail__text">{userDescription}</p>
+          <p className="profail__text">{currentUser.about}</p>
         </div>
         <button type="button" className="profail__add-button" onClick={onAddPlace}></button>
       </section>
       <section className="group">
-        {cards.map((item) => (
+        {cards.map((card) => (
           <Card
             onCardClick={onCardClick}
-            {...item}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
+            key={card._id}
+            {...card}
           />
         ))}
       </section>

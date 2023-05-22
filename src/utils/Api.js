@@ -12,66 +12,60 @@ class Api {
     }
   }
 
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+  _fetch(path, method, data) {
+    let body = data;
+    if((method === 'PATCH' || method === 'POST') && data) {
+      body = JSON.stringify(data);
+    }
+    return fetch(this._baseUrl + path, {
+      method,
+      headers: this._headers,
+      body,
     }).then(this._hendleResponse)
+  };
+
+  getUserInfo() {
+    return this._fetch('/users/me', 'GET');
   }
+
+  setUserInfo(data) {
+    return this._fetch('/users/me', 'PATCH', data);
+  }
+
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    }).then(this._hendleResponse)
+    return this._fetch('/cards', 'GET')
   }
 
-  setUserInfo(userInfo) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: userInfo.name,
-        about: userInfo.about,
-      })
-    }).then(this._hendleResponse)
-  }
-
-  setUserInfoAvatar(userInfo) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: userInfo.avatar
-      })
-    }).then(this._hendleResponse)
+  setUserAvatar(data) {
+    return this._fetch('/users/me/avatar', 'PATCH', data )
   }
 
   addCard(data) {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify(data),
-    }).then(this._hendleResponse)
+    return this._fetch('/cards', 'POST', data)
   }
 
   deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`,{
-      method: 'DELETE',
-      headers: this._headers,
-    }).then(this._hendleResponse)
+    return this._fetch(`/cards/${id}`, 'DELETE')
   }
 
   like(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`,{
-      method: 'PUT',
-      headers: this._headers,
-    }).then(this._hendleResponse)
+    return this._fetch(`/cards/${id}/likes`, 'PUT')
   }
 
   dislike(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`,{
-      method: 'DELETE',
-      headers: this._headers,
-    }).then(this._hendleResponse)
+    return this._fetch(`/cards/${id}/likes`, 'DELETE')
+  }
+
+  changeLikeStatus(id, hasLike) {
+    if(!hasLike) {
+      return api.like(id);
+    }
+    return api.dislike(id);
+  }
+
+  getAllData() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()])
   }
 
 }
